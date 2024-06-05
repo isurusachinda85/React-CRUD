@@ -5,7 +5,7 @@ export default class Home extends Component {
     return (
       <div>
         <div>
-          <h1>Hello</h1>
+          <h1 className="font-bold text-green-500 text-center">Hello</h1>
         </div>
       </div>
     );
