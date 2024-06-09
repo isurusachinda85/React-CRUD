@@ -9,8 +9,22 @@ import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
+import CustomerService from "../../service/CustomerService";
 
 export default class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    this.loadData();
+  }
+
+  loadData = async () => {
+    let res = await CustomerService.getAllCustomer();
+    console.log(res);
+  };
+
   render() {
     return (
       <>
