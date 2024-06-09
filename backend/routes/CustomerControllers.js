@@ -32,4 +32,18 @@ router.get("/:id", async (req, res) => {
   }
 });
 
+router.delete("/:id", async (req, res) => {
+  try {
+    const cusId = req.params.id;
+    const result = await Customer.deleteOne({ id: cusId });
+    if (result.deletedCount == 0) {
+      res.status(404).json({ error: "Customer Not Found.!" });
+    } else {
+      res.status(200).json({ message: "Customer Deleted Successfully.!" });
+    }
+  } catch (error) {
+    console.error("Something Went Wrong.!", error);
+  }
+});
+
 module.exports = router;
