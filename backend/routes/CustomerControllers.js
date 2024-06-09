@@ -46,4 +46,23 @@ router.delete("/:id", async (req, res) => {
   }
 });
 
+router.put("/:id", async (req, res) => {
+  try {
+    const cusId = req.params.id;
+    const customerData = req.body;
+    const updateCustomer = await Customer.findOneAndUpdate(
+      { id: cusId },
+      customerData,
+      { new: true }
+    );
+    if (!updateCustomer) {
+      return res.status(404).json({ error: "Customer Not Found.!" });
+    } else {
+      res.status(200).json({ message: "Customer Update Successfully.!" });
+    }
+  } catch (error) {
+    console.error("Something Went Wrong.!");
+  }
+});
+
 module.exports = router;
