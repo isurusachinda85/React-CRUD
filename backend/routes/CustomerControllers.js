@@ -22,4 +22,14 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/:id", async (req, res) => {
+  try {
+    const cusId = req.params.id;
+    const customer = await Customer.find({ id: cusId });
+    res.status(200).json(customer);
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong !" });
+  }
+});
+
 module.exports = router;
