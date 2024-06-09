@@ -38,6 +38,13 @@ export default class Home extends Component {
                 />
               </div>
             </div>
+
+            <div className="border border-black h-[10%] mt-8 flex flex-row justify-around">
+              <div className="border border-black h-full w-[20%]"></div>
+              <div className="border border-black h-full w-[20%]"></div>
+              <div className="border border-black h-full w-[20%]"></div>
+              <div className="border border-black h-full w-[20%]"></div>
+            </div>
           </div>
         </div>
       </>
