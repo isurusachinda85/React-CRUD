@@ -1,6 +1,18 @@
 const express = require("express");
 const customer = require("./routes/CustomerControllers");
 
+const mongoose = require("mongoose");
+
+const url =
+  "mongodb+srv://isurusachintha8:W0etDARrbzxdXAMb@cluster0.hjsivra.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0";
+mongoose.connect(url);
+
+const con = mongoose.connection;
+
+con.on("open", () => {
+  console.log("Mongodb Connected!");
+});
+
 const app = express();
 
 const port = 4000;
