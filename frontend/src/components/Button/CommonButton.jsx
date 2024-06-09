@@ -59,6 +59,7 @@ export default class CommonButton extends Component {
         className={className}
         size={size}
         endIcon={endIcon}
+        startIcon={startIcon}
         variant={variant}
         disabled={disabled}
         color={color}
