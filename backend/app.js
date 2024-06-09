@@ -1,5 +1,6 @@
 const express = require("express");
 const customer = require("./routes/CustomerControllers");
+const cors = require("cors");
 
 const mongoose = require("mongoose");
 
@@ -16,6 +17,8 @@ con.on("open", () => {
 const app = express();
 
 const port = 4000;
+
+app.use(cors());
 
 app.use(express.json());
 

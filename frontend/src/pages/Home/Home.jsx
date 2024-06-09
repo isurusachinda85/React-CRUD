@@ -14,6 +14,10 @@ import CustomerService from "../../service/CustomerService";
 export default class Home extends Component {
   constructor(props) {
     super(props);
+
+    this.state = {
+      data: [],
+    };
   }
 
   componentDidMount() {
@@ -22,7 +26,12 @@ export default class Home extends Component {
 
   loadData = async () => {
     let res = await CustomerService.getAllCustomer();
-    console.log(res);
+    if (res.status === 200) {
+      this.setState({
+        data: res.data,
+      });
+      console.log(this.state.data);
+    }
   };
 
   render() {
@@ -106,7 +115,15 @@ export default class Home extends Component {
                       <TableCell align="center">Address</TableCell>
                     </TableRow>
                   </TableHead>
-                  <TableBody></TableBody>
+                  <TableBody>
+                    {this.state.data.map((row) => (
+                      <TableRow>
+                        <TableCell align="center">{row.id}</TableCell>
+                        <TableCell align="center">{row.name}</TableCell>
+                        <TableCell align="center">{row.address}</TableCell>
+                      </TableRow>
+                    ))}
+                  </TableBody>
                 </Table>
               </TableContainer>
             </div>
