@@ -12,4 +12,14 @@ router.get("/", async (req, res) => {
   }
 });
 
+router.post("/", async (req, res) => {
+  try {
+    const cusData = req.body;
+    const customer = await Customer.create(cusData);
+    res.status(201).json({ massage: "Save Customer" });
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong !" });
+  }
+});
+
 module.exports = router;
