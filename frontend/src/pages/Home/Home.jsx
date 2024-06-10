@@ -36,6 +36,7 @@ export default class Home extends Component {
     this.loadData();
   }
 
+  //Load All Data
   loadData = async () => {
     let res = await CustomerService.getAllCustomer();
     if (res.status === 200) {
@@ -45,6 +46,7 @@ export default class Home extends Component {
     }
   };
 
+  //Save Data
   saveCustomer = async () => {
     let formdata = this.state.formData;
     let res = await CustomerService.saveCustomer(formdata);
@@ -66,6 +68,7 @@ export default class Home extends Component {
     }
   };
 
+  //Delete Data
   deleteCustomer = async () => {
     let id = this.state.formData.id;
     let res = await CustomerService.deleteCustomer(id);
@@ -87,6 +90,7 @@ export default class Home extends Component {
     }
   };
 
+  //Update Data
   updateCustomer = async () => {
     let formdata = this.state.formData;
     let res = await CustomerService.updateCustomer(formdata);
@@ -107,6 +111,7 @@ export default class Home extends Component {
     }
   };
 
+  //Find By Data
   findCustomer = async () => {
     let id = this.state.formData.id;
     let res = await CustomerService.findCustomer(id);
