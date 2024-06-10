@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
     const customer = await Customer.create(cusData);
     res.status(201).json({ massage: "Save Customer" });
   } catch (error) {
-    res.status(500).json({ error: "Something went wrong !" });
+    res.status(500).json({ error: "Duplicate Id plese enter new Id !" });
   }
 });
 

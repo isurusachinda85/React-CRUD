@@ -10,6 +10,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomerService from "../../service/CustomerService";
+import CommonSnackBar from "../../components/Snackbar/CommonSnackBar";
 
 export default class Home extends Component {
   constructor(props) {
@@ -17,6 +18,17 @@ export default class Home extends Component {
 
     this.state = {
       data: [],
+
+      formData: {
+        id: "",
+        name: "",
+        address: "",
+      },
+
+      //for snack bar
+      open: false,
+      message: "",
+      severity: "",
     };
   }
 
@@ -30,7 +42,46 @@ export default class Home extends Component {
       this.setState({
         data: res.data,
       });
-      console.log(this.state.data);
+    }
+  };
+
+  saveCustomer = async () => {
+    let formdata = this.state.formData;
+    let res = await CustomerService.saveCustomer(formdata);
+
+    if (res.status === 201) {
+      this.setState({
+        open: true,
+        message: res.data.massage,
+        severity: "success",
+      });
+      this.loadData();
+    } else {
+      this.setState({
+        open: true,
+        message: res.response.data.error,
+        severity: "error",
+      });
+    }
+  };
+
+  deleteCustomer = async () => {
+    let id = this.state.formData.id;
+    let res = await CustomerService.deleteCustomer(id);
+    console.log(res);
+    if (res.status === 200) {
+      this.setState({
+        open: true,
+        message: res.data.message,
+        severity: "success",
+      });
+      this.loadData();
+    } else {
+      this.setState({
+        open: true,
+        message: res.response.data.error,
+        severity: "error",
+      });
     }
   };
 
@@ -50,6 +101,12 @@ export default class Home extends Component {
                   label="ID"
                   variant="outlined"
                   size="small"
+                  value={this.state.formData.id}
+                  onChange={(e) => {
+                    let formdata = this.state.formData;
+                    formdata.id = e.target.value;
+                    this.setState({ formdata });
+                  }}
                 />
                 <div className="h-full w-[25%] flex items-center ">
                   <CommonButton
@@ -66,6 +123,12 @@ export default class Home extends Component {
                   label="Name"
                   variant="outlined"
                   size="small"
+                  value={this.state.formData.name}
+                  onChange={(e) => {
+                    let formdata = this.state.formData;
+                    formdata.name = e.target.value;
+                    this.setState({ formdata });
+                  }}
                 />
               </div>
               <div className="h-full w-[25%] flex items-center">
@@ -74,6 +137,12 @@ export default class Home extends Component {
                   label="Address"
                   variant="outlined"
                   size="small"
+                  value={this.state.formData.address}
+                  onChange={(e) => {
+                    let formdata = this.state.formData;
+                    formdata.address = e.target.value;
+                    this.setState({ formdata });
+                  }}
                 />
               </div>
             </div>
@@ -129,6 +198,16 @@ export default class Home extends Component {
             </div>
           </div>
         </div>
+        <CommonSnackBar
+          open={this.state.open}
+          onClose={() => {
+            this.setState({ open: false });
+          }}
+          message={this.state.message}
+          autoHideDuration={3000}
+          severity={this.state.severity}
+          variant="filled"
+        />
       </>
     );
   }

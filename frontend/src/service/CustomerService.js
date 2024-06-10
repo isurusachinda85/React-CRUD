@@ -14,6 +14,34 @@ class CustomerService {
     });
     return await promise;
   };
+
+  saveCustomer = async (data) => {
+    const promise = new Promise((resolve, reject) => {
+      axios
+        .post("customer", data)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((er) => {
+          return resolve(er);
+        });
+    });
+    return await promise;
+  };
+
+  deleteCustomer = async (id) => {
+    const promise = new Promise((resolve, reject) => {
+      axios
+        .delete(`customer/${id}`)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((er) => {
+          return resolve(er);
+        });
+    });
+    return await promise;
+  };
 }
 
 export default new CustomerService();
