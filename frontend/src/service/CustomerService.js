@@ -56,6 +56,20 @@ class CustomerService {
     });
     return await promise;
   };
+
+  findCustomer = async (id) => {
+    const promise = new Promise((resolve, reject) => {
+      axios
+        .get(`customer/${id}`)
+        .then((res) => {
+          return resolve(res);
+        })
+        .catch((er) => {
+          return resolve(er);
+        });
+    });
+    return await promise;
+  };
 }
 
 export default new CustomerService();

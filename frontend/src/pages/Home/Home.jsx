@@ -56,6 +56,7 @@ export default class Home extends Component {
         severity: "success",
       });
       this.loadData();
+      this.clearTextField();
     } else {
       this.setState({
         open: true,
@@ -76,6 +77,7 @@ export default class Home extends Component {
         severity: "success",
       });
       this.loadData();
+      this.clearTextField();
     } else {
       this.setState({
         open: true,
@@ -95,6 +97,7 @@ export default class Home extends Component {
         severity: "success",
       });
       this.loadData();
+      this.clearTextField();
     } else {
       this.setState({
         open: true,
@@ -102,6 +105,27 @@ export default class Home extends Component {
         severity: "error",
       });
     }
+  };
+
+  findCustomer = async () => {
+    let id = this.state.formData.id;
+    let res = await CustomerService.findCustomer(id);
+    if (res.status === 200) {
+      this.setState({
+        data: res.data,
+      });
+    }
+  };
+
+  clearTextField = () => {
+    this.setState({
+      formData: {
+        id: "",
+        name: "",
+        address: "",
+        mobile: "",
+      },
+    });
   };
 
   render() {
@@ -130,7 +154,7 @@ export default class Home extends Component {
                 <div className="h-full w-[25%] flex items-center ">
                   <CommonButton
                     className="h-[70%]"
-                    onClick={this.updateCustomer}
+                    onClick={this.findCustomer}
                     variant="outlined"
                     startIcon={<SearchIcon />}
                   />
