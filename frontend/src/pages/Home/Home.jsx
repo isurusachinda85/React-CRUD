@@ -68,7 +68,26 @@ export default class Home extends Component {
   deleteCustomer = async () => {
     let id = this.state.formData.id;
     let res = await CustomerService.deleteCustomer(id);
-    console.log(res);
+
+    if (res.status === 200) {
+      this.setState({
+        open: true,
+        message: res.data.message,
+        severity: "success",
+      });
+      this.loadData();
+    } else {
+      this.setState({
+        open: true,
+        message: res.response.data.error,
+        severity: "error",
+      });
+    }
+  };
+
+  updateCustomer = async () => {
+    let formdata = this.state.formData;
+    let res = await CustomerService.updateCustomer(formdata);
     if (res.status === 200) {
       this.setState({
         open: true,
