@@ -8,6 +8,8 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomerService from "../../service/CustomerService";
+import { Button } from "@mui/material";
+import { useState } from "react";
 
 // export default class Home extends Component {
 //   constructor(props) {
@@ -138,6 +140,13 @@ import CustomerService from "../../service/CustomerService";
 // }
 
 const Home = () => {
+  const [formData, setFormData] = useState({
+    id: "",
+    name: "",
+    address: "",
+  });
+  // console.log(formData);
+
   return (
     <>
       <div className="h-[100vh] flex flex-col items-center justify-center ">
@@ -153,20 +162,20 @@ const Home = () => {
                 label="ID"
                 variant="outlined"
                 size="small"
-                /* value={this.state.formData.id}
-                  onChange={(e) => {
-                    let formdata = this.state.formData;
-                    formdata.id = e.target.value;
-                    this.setState({ formdata });
-                  }} */
+                value={formData.id}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    id: e.target.value,
+                  });
+                }}
               />
               <div className="h-full w-[25%] flex items-center ">
-                {/* <CommonButton
-                    className="h-[70%]"
-                    onClick={this.findCustomer}
-                    variant="outlined"
-                    startIcon={<SearchIcon />}
-                  /> */}
+                <Button
+                  variant="outlined"
+                  style={{ height: "70%" }}
+                  startIcon={<SearchIcon />}
+                ></Button>
               </div>
             </div>
             <div className="h-full w-[25%] flex items-center">
@@ -175,12 +184,13 @@ const Home = () => {
                 label="Name"
                 variant="outlined"
                 size="small"
-                /* value={this.state.formData.name}
-                  onChange={(e) => {
-                    let formdata = this.state.formData;
-                    formdata.name = e.target.value;
-                    this.setState({ formdata });
-                  }} */
+                value={formData.name}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    name: e.target.value,
+                  });
+                }}
               />
             </div>
             <div className="h-full w-[25%] flex items-center">
@@ -189,28 +199,38 @@ const Home = () => {
                 label="Address"
                 variant="outlined"
                 size="small"
-                /* value={this.state.formData.address}
-                  onChange={(e) => {
-                    let formdata = this.state.formData;
-                    formdata.address = e.target.value;
-                    this.setState({ formdata });
-                  }} */
+                value={formData.address}
+                onChange={(e) => {
+                  setFormData({
+                    ...formData,
+                    address: e.target.value,
+                  });
+                }}
               />
             </div>
           </div>
 
           <div className="h-[10%] mt-8 flex flex-row justify-around ml-40 mr-40">
             <div className="w-[20%] flex items-center justify-center">
-              <button>Save</button>
+              <Button variant="contained">Save</Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
-              <button>Update</button>
+              <Button variant="contained" color="success">
+                Update
+              </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
-              <button>Delete</button>
+              <Button variant="contained" color="error">
+                Delete
+              </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
-              <button>Clear</button>
+              <Button
+                variant="contained"
+                style={{ background: "yellow", color: "black" }}
+              >
+                Clear
+              </Button>
             </div>
           </div>
 
