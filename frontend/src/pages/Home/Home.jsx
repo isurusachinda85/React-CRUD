@@ -11,27 +11,6 @@ import CustomerService from "../../service/CustomerService";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
 
-//   //Load All Data
-//   loadData = async () => {
-//     let res = await CustomerService.getAllCustomer();
-//     if (res.status === 200) {
-//       this.setState({
-//         data: res.data,
-//       });
-//     }
-//   };
-
-/* //   //Find By Data
-//   findCustomer = async () => {
-//     let id = this.state.formData.id;
-//     let res = await CustomerService.findCustomer(id);
-//     if (res.status === 200) {
-//       this.setState({
-//         data: res.data,
-//       });
-//     }
-//   }; */
-
 const Home = () => {
   const [formData, setFormData] = useState({
     id: "",
@@ -58,7 +37,7 @@ const Home = () => {
   const saveData = async () => {
     let res = await CustomerService.saveCustomer(formData);
     if (res.status === 201) {
-      alert("Save");
+      // alert("Save");
       clear();
       loadAllData();
     } else {
@@ -69,10 +48,9 @@ const Home = () => {
   //put data
   const updateData = async () => {
     let res = await CustomerService.updateCustomer(formData);
-    console.log(res);
 
     if (res.status === 200) {
-      alert(res.data.message);
+      // alert(res.data.message);
       clear();
       loadAllData();
     } else {
@@ -83,10 +61,9 @@ const Home = () => {
   //delete data
   const deleteData = async () => {
     let res = await CustomerService.deleteCustomer(formData.id);
-    console.log(res);
 
     if (res.status === 200) {
-      alert(res.data.message);
+      // alert(res.data.message);
       clear();
       loadAllData();
     } else {
@@ -97,6 +74,16 @@ const Home = () => {
   //load All Data
   const loadAllData = async () => {
     let res = await CustomerService.getAllCustomer();
+
+    if (res.status === 200) {
+      setData(res.data);
+    }
+  };
+
+  //find data
+  const findData = async () => {
+    let res = await CustomerService.findCustomer(formData.id);
+    console.log(res);
 
     if (res.status === 200) {
       setData(res.data);
@@ -131,6 +118,7 @@ const Home = () => {
                   variant="outlined"
                   style={{ height: "70%" }}
                   startIcon={<SearchIcon />}
+                  onClick={findData}
                 ></Button>
               </div>
             </div>
