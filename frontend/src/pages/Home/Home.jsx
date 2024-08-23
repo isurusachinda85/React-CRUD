@@ -11,58 +11,12 @@ import CustomerService from "../../service/CustomerService";
 import { Button } from "@mui/material";
 import { useState } from "react";
 
-// export default class Home extends Component {
-//   constructor(props) {
-//     super(props);
-
-//     this.state = {
-//       data: [],
-
-//       formData: {
-//         id: "",
-//         name: "",
-//         address: "",
-//       },
-
-//       //for snack bar
-//       open: false,
-//       message: "",
-//       severity: "",
-//     };
-//   }
-
-//   componentDidMount() {
-//     this.loadData();
-//   }
-
 //   //Load All Data
 //   loadData = async () => {
 //     let res = await CustomerService.getAllCustomer();
 //     if (res.status === 200) {
 //       this.setState({
 //         data: res.data,
-//       });
-//     }
-//   };
-
-//   //Save Data
-//   saveCustomer = async () => {
-//     let formdata = this.state.formData;
-//     let res = await CustomerService.saveCustomer(formdata);
-
-//     if (res.status === 201) {
-//       this.setState({
-//         open: true,
-//         message: res.data.massage,
-//         severity: "success",
-//       });
-//       this.loadData();
-//       this.clearTextField();
-//     } else {
-//       this.setState({
-//         open: true,
-//         message: res.response.data.error,
-//         severity: "error",
 //       });
 //     }
 //   };
@@ -89,6 +43,39 @@ import { useState } from "react";
 //     }
 //   };
 
+/* //   //Find By Data
+//   findCustomer = async () => {
+//     let id = this.state.formData.id;
+//     let res = await CustomerService.findCustomer(id);
+//     if (res.status === 200) {
+//       this.setState({
+//         data: res.data,
+//       });
+//     }
+//   }; */
+
+/* //   //Save Data
+//   saveCustomer = async () => {
+//     let formdata = this.state.formData;
+//     let res = await CustomerService.saveCustomer(formdata);
+
+//     if (res.status === 201) {
+//       this.setState({
+//         open: true,
+//         message: res.data.massage,
+//         severity: "success",
+//       });
+//       this.loadData();
+//       this.clearTextField();
+//     } else {
+//       this.setState({
+//         open: true,
+//         message: res.response.data.error,
+//         severity: "error",
+//       });
+//     }
+//   }; */
+
 //   //Update Data
 //   updateCustomer = async () => {
 //     let formdata = this.state.formData;
@@ -110,42 +97,41 @@ import { useState } from "react";
 //     }
 //   };
 
-//   //Find By Data
-//   findCustomer = async () => {
-//     let id = this.state.formData.id;
-//     let res = await CustomerService.findCustomer(id);
-//     if (res.status === 200) {
-//       this.setState({
-//         data: res.data,
-//       });
-//     }
-//   };
-
-//   clearTextField = () => {
-//     this.setState({
-//       formData: {
-//         id: "",
-//         name: "",
-//         address: "",
-//         mobile: "",
-//       },
-//     });
-//   };
-
-//   render() {
-//     return (
-
-//     );
-//   }
-// }
-
 const Home = () => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
     address: "",
   });
-  // console.log(formData);
+  // const [myData, setMyData] = useState([]);
+  // console.log(myData);
+
+  //form clear
+  const clear = () => {
+    setFormData({
+      id: "",
+      name: "",
+      address: "",
+    });
+  };
+
+  const saveData = async () => {
+    // setMyData((pre) => [
+    //   ...pre,
+    //   {
+    //     id: formData.id,
+    //     name: formData.name,
+    //     address: formData.address,
+    //   },
+    // ]);
+    let res = await CustomerService.saveCustomer(formData);
+    if (res.status === 201) {
+      alert("Save");
+      clear();
+    } else {
+      alert("Error");
+    }
+  };
 
   return (
     <>
@@ -212,7 +198,9 @@ const Home = () => {
 
           <div className="h-[10%] mt-8 flex flex-row justify-around ml-40 mr-40">
             <div className="w-[20%] flex items-center justify-center">
-              <Button variant="contained">Save</Button>
+              <Button variant="contained" onClick={saveData}>
+                Save
+              </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
               <Button variant="contained" color="success">
@@ -245,13 +233,13 @@ const Home = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {this.state.data.map((row) => (
-                      <TableRow>
-                        <TableCell align="center">{row.id}</TableCell>
-                        <TableCell align="center">{row.name}</TableCell>
-                        <TableCell align="center">{row.address}</TableCell>
-                      </TableRow>
-                    ))} */}
+                  {/* {myData.map((row, index) => (
+                    <TableRow key={index}>
+                      <TableCell align="center">{row.id}</TableCell>
+                      <TableCell align="center">{row.name}</TableCell>
+                      <TableCell align="center">{row.address}</TableCell>
+                    </TableRow>
+                  ))} */}
                 </TableBody>
               </Table>
             </TableContainer>
