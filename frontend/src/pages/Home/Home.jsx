@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import SearchIcon from "@mui/icons-material/Search";
 import CustomerService from "../../service/CustomerService";
 import { Button } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 //   //Load All Data
 //   loadData = async () => {
@@ -17,28 +17,6 @@ import { useState } from "react";
 //     if (res.status === 200) {
 //       this.setState({
 //         data: res.data,
-//       });
-//     }
-//   };
-
-//   //Delete Data
-//   deleteCustomer = async () => {
-//     let id = this.state.formData.id;
-//     let res = await CustomerService.deleteCustomer(id);
-
-//     if (res.status === 200) {
-//       this.setState({
-//         open: true,
-//         message: res.data.message,
-//         severity: "success",
-//       });
-//       this.loadData();
-//       this.clearTextField();
-//     } else {
-//       this.setState({
-//         open: true,
-//         message: res.response.data.error,
-//         severity: "error",
 //       });
 //     }
 //   };
@@ -54,57 +32,18 @@ import { useState } from "react";
 //     }
 //   }; */
 
-/* //   //Save Data
-//   saveCustomer = async () => {
-//     let formdata = this.state.formData;
-//     let res = await CustomerService.saveCustomer(formdata);
-
-//     if (res.status === 201) {
-//       this.setState({
-//         open: true,
-//         message: res.data.massage,
-//         severity: "success",
-//       });
-//       this.loadData();
-//       this.clearTextField();
-//     } else {
-//       this.setState({
-//         open: true,
-//         message: res.response.data.error,
-//         severity: "error",
-//       });
-//     }
-//   }; */
-
-//   //Update Data
-//   updateCustomer = async () => {
-//     let formdata = this.state.formData;
-//     let res = await CustomerService.updateCustomer(formdata);
-//     if (res.status === 200) {
-//       this.setState({
-//         open: true,
-//         message: res.data.message,
-//         severity: "success",
-//       });
-//       this.loadData();
-//       this.clearTextField();
-//     } else {
-//       this.setState({
-//         open: true,
-//         message: res.response.data.error,
-//         severity: "error",
-//       });
-//     }
-//   };
-
 const Home = () => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
     address: "",
   });
-  // const [myData, setMyData] = useState([]);
-  // console.log(myData);
+  const [data, setData] = useState([]);
+
+  useEffect(() => {
+    loadAllData();
+  }, []);
+  // console.log(data);
 
   //form clear
   const clear = () => {
@@ -115,21 +54,52 @@ const Home = () => {
     });
   };
 
+  //post data
   const saveData = async () => {
-    // setMyData((pre) => [
-    //   ...pre,
-    //   {
-    //     id: formData.id,
-    //     name: formData.name,
-    //     address: formData.address,
-    //   },
-    // ]);
     let res = await CustomerService.saveCustomer(formData);
     if (res.status === 201) {
       alert("Save");
       clear();
+      loadAllData();
     } else {
       alert("Error");
+    }
+  };
+
+  //put data
+  const updateData = async () => {
+    let res = await CustomerService.updateCustomer(formData);
+    console.log(res);
+
+    if (res.status === 200) {
+      alert(res.data.message);
+      clear();
+      loadAllData();
+    } else {
+      alert("Error");
+    }
+  };
+
+  //delete data
+  const deleteData = async () => {
+    let res = await CustomerService.deleteCustomer(formData.id);
+    console.log(res);
+
+    if (res.status === 200) {
+      alert(res.data.message);
+      clear();
+      loadAllData();
+    } else {
+      alert("Error");
+    }
+  };
+
+  //load All Data
+  const loadAllData = async () => {
+    let res = await CustomerService.getAllCustomer();
+
+    if (res.status === 200) {
+      setData(res.data);
     }
   };
 
@@ -203,17 +173,18 @@ const Home = () => {
               </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
-              <Button variant="contained" color="success">
+              <Button variant="contained" color="success" onClick={updateData}>
                 Update
               </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
-              <Button variant="contained" color="error">
+              <Button variant="contained" color="error" onClick={deleteData}>
                 Delete
               </Button>
             </div>
             <div className="w-[20%] flex items-center justify-center">
               <Button
+                onClick={clear}
                 variant="contained"
                 style={{ background: "yellow", color: "black" }}
               >
@@ -233,13 +204,13 @@ const Home = () => {
                   </TableRow>
                 </TableHead>
                 <TableBody>
-                  {/* {myData.map((row, index) => (
+                  {data.map((row, index) => (
                     <TableRow key={index}>
                       <TableCell align="center">{row.id}</TableCell>
                       <TableCell align="center">{row.name}</TableCell>
                       <TableCell align="center">{row.address}</TableCell>
                     </TableRow>
-                  ))} */}
+                  ))}
                 </TableBody>
               </Table>
             </TableContainer>
