@@ -1,5 +1,6 @@
 const express = require("express");
 const customer = require("./routes/CustomerControllers");
+const product = require("./routes/ProductControllers");
 const cors = require("cors");
 
 const mongoose = require("mongoose");
@@ -23,6 +24,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use("/customer", customer);
+app.use("/product", product);
 
 app.listen(port, (req, res) => {
   console.log(`express app listening on port ${port}`);
