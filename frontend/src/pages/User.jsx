@@ -1,11 +1,11 @@
 import TextField from "@mui/material/TextField";
 import SearchIcon from "@mui/icons-material/Search";
-import CustomerService from "../../service/CustomerService";
+import CustomerService from "../service/CustomerService";
 import { Button } from "@mui/material";
 import { useEffect, useState } from "react";
-import DataTable from "../../components/DataTable";
+import DataTable from "../components/DataTable";
 
-const Home = () => {
+const User = () => {
   const [formData, setFormData] = useState({
     id: "",
     name: "",
@@ -194,4 +194,4 @@ const Home = () => {
   );
 };
 
-export default Home;
+export default User;
