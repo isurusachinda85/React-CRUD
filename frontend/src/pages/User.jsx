@@ -86,7 +86,7 @@ const User = () => {
 
   return (
     <>
-      <div className="h-[100vh] flex flex-col items-center justify-center ">
+      <div className="h-[100vh] flex flex-col items-center justify-center mb-24">
         <div className="text-blue-600 text-3xl font-bold mb-5">
           <h2>React CRUD</h2>
         </div>
