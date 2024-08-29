@@ -13,4 +13,13 @@ router.post("/", async (req, res) => {
   }
 });
 
+router.get("/", async (req, res) => {
+  try {
+    const product = await Product.find();
+    res.json(product);
+  } catch (error) {
+    console.error(e);
+    res.status(500).json({ error: "Something went wrong !" });
+  }
+});
 module.exports = router;
