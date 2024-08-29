@@ -1,11 +1,28 @@
 const express = require("express");
 const router = express.Router();
 const Product = require("../models/Product");
+const multer = require("multer");
+const path = require("path");
 
-router.post("/", async (req, res) => {
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, "uploads/");
+  },
+  filename: (req, file, cb) => {
+    cb(null, `${Date.now()}_${file.originalname}`);
+  },
+});
+
+const upload = multer({ storage }).single("image");
+console.log(upload);
+
+router.post("/", upload, async (req, res) => {
   try {
     const productData = req.body;
     console.log(productData);
+    if (req.file) {
+      productData.image = req.file.path;
+    }
     const product = await Product.create(productData);
     res.status(201).json({ massage: "Save Product" });
   } catch (error) {

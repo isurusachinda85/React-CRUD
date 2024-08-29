@@ -21,9 +21,12 @@ const Home = () => {
 
   const loadAllProductData = async () => {
     let res = await ProductService.getAllProduct();
+    console.log(res);
 
     if (res.status === 200) {
       setProductData(res.data);
+    } else {
+      console.log("error");
     }
   };
 
@@ -74,7 +77,13 @@ const Home = () => {
                     <TableCell align="center">{row.brand}</TableCell>
                     <TableCell align="center">{row.category}</TableCell>
                     <TableCell align="center">{row.price}</TableCell>
-                    <TableCell align="center">{row.image}</TableCell>
+                    <TableCell align="center">
+                      <img
+                        className="w-[100px]"
+                        src={`http://localhost:3000/product/ ${row.image}`}
+                        alt=""
+                      />
+                    </TableCell>
                     <TableCell align="center">{row.description}</TableCell>
                     <TableCell align="center">
                       <Tooltip title="Edit">

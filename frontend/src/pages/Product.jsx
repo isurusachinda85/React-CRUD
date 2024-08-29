@@ -10,7 +10,7 @@ const Product = () => {
     category: null,
     price: 0.0,
     description: "",
-    image: "",
+    image: null,
   });
 
   const clearForm = () => {
@@ -20,12 +20,20 @@ const Product = () => {
       category: null,
       price: 0.0,
       description: "",
-      image: "",
+      image: null,
     });
   };
 
   const saveProduct = async () => {
-    let res = await ProductService.createProduct(formData);
+    const form = new FormData();
+    form.append("name", formData.name);
+    form.append("brand", formData.brand);
+    form.append("category", formData.category);
+    form.append("price", parseFloat(formData.price));
+    form.append("description", formData.description);
+    if (formData.image) form.append("image", formData.image);
+
+    let res = await ProductService.createProduct(form);
     if (res.status === 201) {
       clearForm();
     } else {
@@ -154,6 +162,7 @@ const Product = () => {
               }}
             />
           </div>
+
           <div className=" items-center mt-5">
             <h1>Image</h1>
 
@@ -163,11 +172,10 @@ const Product = () => {
               size="small"
               fullWidth
               type="file"
-              value={formData.image}
               onChange={(e) => {
                 setFormData({
                   ...formData,
-                  image: e.target.value,
+                  image: e.target.files[0],
                 });
               }}
             />

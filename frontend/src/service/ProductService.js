@@ -3,6 +3,8 @@ import axios from "../axios";
 class ProductService {
   createProduct = async (data) => {
     const promise = new Promise((resolve, reject) => {
+      console.log(data);
+
       axios
         .post("product", data)
         .then((res) => {
