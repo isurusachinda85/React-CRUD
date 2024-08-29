@@ -21,7 +21,7 @@ const Home = () => {
 
   const loadAllProductData = async () => {
     let res = await ProductService.getAllProduct();
-    console.log(res);
+    // console.log(res);
 
     if (res.status === 200) {
       setProductData(res.data);
@@ -80,7 +80,7 @@ const Home = () => {
                     <TableCell align="center">
                       <img
                         className="w-[100px]"
-                        src={`http://localhost:3000/product/ ${row.image}`}
+                        src={`http://localhost:4000/` + row.image}
                         alt=""
                       />
                     </TableCell>
