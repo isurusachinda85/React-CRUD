@@ -21,6 +21,10 @@ const produtSchema = new mongoose.Schema({
     require: true,
     type: String,
   },
+  phoneDetail: {
+    require: true,
+    type: String,
+  },
   image: {
     require: true,
     type: String,

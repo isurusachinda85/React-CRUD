@@ -83,6 +83,7 @@ const Home = () => {
                       />
                     </TableCell>
                     <TableCell align="center">{row.description}</TableCell>
+
                     <TableCell align="center">
                       <Tooltip title="Edit">
                         <IconButton>

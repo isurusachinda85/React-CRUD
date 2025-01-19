@@ -10,6 +10,7 @@ const Product = () => {
     category: null,
     price: 0.0,
     description: "",
+    phoneDetail: "",
     image: null,
   });
 
@@ -20,6 +21,7 @@ const Product = () => {
       category: null,
       price: 0.0,
       description: "",
+      phoneDetail: "",
       image: null,
     });
   };
@@ -31,9 +33,12 @@ const Product = () => {
     form.append("category", formData.category);
     form.append("price", parseFloat(formData.price));
     form.append("description", formData.description);
+    form.append("phoneDetail", formData.phoneDetail);
     if (formData.image) form.append("image", formData.image);
 
     let res = await ProductService.createProduct(form);
+    console.log(res);
+
     if (res.status === 201) {
       clearForm();
     } else {
@@ -41,20 +46,7 @@ const Product = () => {
     }
   };
 
-  const pBrand = [
-    "Apple",
-    "Samsung",
-    "Sony",
-    "Vivo",
-    "Oppo",
-    "Nokia",
-    "Huwawei",
-    "Xiaomi",
-    "Google",
-    "Motrola",
-    "Realme",
-    "Poco",
-  ];
+  const pBrand = ["Apple", "Samsung", "Vivo", "Oppo", "Nokia", "Huwawei"];
   const pCategory = ["Phone", "Laptop", "Accessories"];
 
   return (
@@ -148,16 +140,35 @@ const Product = () => {
 
             <TextField
               id="outlined-basic"
-              placeholder="Type Your Description"
+              placeholder="Description"
               variant="outlined"
               fullWidth
               multiline
-              rows={4}
+              rows={3}
               value={formData.description}
               onChange={(e) => {
                 setFormData({
                   ...formData,
                   description: e.target.value,
+                });
+              }}
+            />
+          </div>
+          <div className=" items-center mt-5">
+            <h1>Phone Details</h1>
+
+            <TextField
+              id="outlined-basic"
+              placeholder="Phone Details"
+              variant="outlined"
+              fullWidth
+              multiline
+              rows={3}
+              value={formData.phoneDetail}
+              onChange={(e) => {
+                setFormData({
+                  ...formData,
+                  phoneDetail: e.target.value,
                 });
               }}
             />
