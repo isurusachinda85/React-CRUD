@@ -34,7 +34,7 @@ const Header = () => {
           </li>
 
           <li className="md:ml-8 md:my-0 my-7 text-xl font-bold hover:text-gray-400 duration-500 cursor-pointer">
-            <Link to={"/about"}>About</Link>
+            <Link to={"/productList"}>Product List</Link>
           </li>
 
           <li className="md:ml-8 md:my-0 my-7 text-xl font-bold hover:text-gray-400 duration-500 cursor-pointer">

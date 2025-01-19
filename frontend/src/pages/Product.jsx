@@ -162,7 +162,15 @@ const Product = () => {
               }}
             />
           </div>
-
+          {formData.image && (
+            <div className=" mt-5 flex justify-center items-center">
+              <img
+                src={URL.createObjectURL(formData.image)}
+                alt="Product preview"
+                className="w-[100px]"
+              />
+            </div>
+          )}
           <div className=" items-center mt-5">
             <h1>Image</h1>
 

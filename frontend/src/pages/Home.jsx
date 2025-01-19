@@ -32,8 +32,6 @@ const Home = () => {
 
   return (
     <div className="mb-24">
-      <h1 className="text-center font-bold text-4xl text-green-500">Product</h1>
-
       <div className="pt-5 pl-16 pr-16 grid md:grid-cols-2 items-center sm:grid-cols-1 gap-2">
         <div className=" col-span-1">
           <Link to="/product">
@@ -79,7 +77,7 @@ const Home = () => {
                     <TableCell align="center">{row.price}</TableCell>
                     <TableCell align="center">
                       <img
-                        className="w-[100px]"
+                        className="w-[100px] "
                         src={`http://localhost:4000/` + row.image}
                         alt=""
                       />
