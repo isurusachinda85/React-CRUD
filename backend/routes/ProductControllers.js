@@ -37,4 +37,15 @@ router.get("/", async (req, res) => {
     res.status(500).json({ error: "Something went wrong !" });
   }
 });
+
+router.get("/:id", async (req, res) => {
+  try {
+    const productId = req.params.id;
+    const product = await Product.find({ _id: productId });
+    res.status(200).json(product);
+  } catch (error) {
+    res.status(500).json({ error: "Something went wrong !" });
+  }
+});
+
 module.exports = router;

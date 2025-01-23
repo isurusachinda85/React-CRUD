@@ -3,6 +3,7 @@ import ProductService from "../service/ProductService";
 import Card from "@mui/material/Card";
 import { Button } from "@mui/material";
 import AddShoppingCartOutlinedIcon from "@mui/icons-material/AddShoppingCartOutlined";
+import { Link } from "react-router-dom";
 
 const ProductList = () => {
   const [productData, setProductData] = useState([]);
@@ -21,6 +22,7 @@ const ProductList = () => {
       console.log("error");
     }
   };
+
   return (
     <div>
       <h1 className="text-center font-bold text-4xl text-blue-600">
@@ -29,24 +31,26 @@ const ProductList = () => {
 
       <div className="flex flex-wrap justify-around  gap-10 p-10 mb-24">
         {productData?.map((data, index) => {
-          console.log(data);
+          //console.log(data._id);
 
           if (data.brand === "Apple") {
             return (
               <Card
                 key={index}
                 variant="outlined"
-                className="h-[350px] w-[280px] shadow-md"
+                className="h-[450px] w-[270px] shadow-md"
               >
-                <div className="w-full h-[45%] flex items-center justify-center bg-[#f8f9fa]">
-                  <img
-                    className="w-[150px] "
-                    src={`http://localhost:4000/` + data.image}
-                    alt=""
-                  />
-                </div>
+                <Link to={`/productDetail/${data._id}`}>
+                  <div className="w-full h-[45%] flex items-center justify-center bg-[#f8f9fa] ">
+                    <img
+                      className="w-[150px] "
+                      src={`http://localhost:4000/` + data.image}
+                      alt=""
+                    />
+                  </div>
+                </Link>
                 <div className="w-full h-[55%] p-5 ">
-                  <div className="w-full h-[20%] font-bold text-[20px] flex items-center ">
+                  <div className="w-full h-[20%] font-bold text-[18px] flex items-center ">
                     <h1>{data.name}</h1>
                   </div>
                   <div className="w-full h-[30%] flex items-center ">
